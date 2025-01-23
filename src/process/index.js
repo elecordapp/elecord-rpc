@@ -40,7 +40,7 @@ export default class ProcessServer {
       
       var detected = [];
       if (cache[cacheKey] !== undefined) {
-        detected = cache[cacheKey].detected;
+        detected = cache[cacheKey];
       }
       else {
         const toCompare = [];
@@ -67,7 +67,7 @@ export default class ProcessServer {
           }
         }
         
-        cache[cacheKey] = {"detected": detected};
+        cache[cacheKey] = detected;
       }
       
       for (const { executables, id, name } of detected) {
