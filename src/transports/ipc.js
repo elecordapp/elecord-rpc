@@ -1,5 +1,5 @@
 const rgb = (r, g, b, msg) => `\x1b[38;2;${r};${g};${b}m${msg}\x1b[0m`;
-const log = (...args) => console.log(`[${rgb(88, 101, 242, 'arRPC')} > ${rgb(254, 231, 92, 'ipc')}]`, ...args);
+const log = (...args) => console.log(`[${rgb(88, 101, 242, 'RPC')} > ${rgb(254, 231, 92, 'ipc')}]`, ...args);
 
 import { join } from 'path';
 import { platform, env } from 'process';
