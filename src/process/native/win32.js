@@ -16,6 +16,8 @@ const UNICODE_STRING = koffi.struct('UNICODE_STRING', {
   Buffer: HANDLE
 });
 
+// The SYSTEM_PROCESS_ID_INFORMATION structure is not officially documented
+// https://www.geoffchappell.com/studies/windows/km/ntoskrnl/api/ex/sysinfo/process_id.htm
 const SYSTEM_PROCESS_ID_INFORMATION = koffi.struct('SYSTEM_PROCESS_ID_INFORMATION', {
   ProcessId: HANDLE,
   ImageName: UNICODE_STRING
@@ -59,6 +61,12 @@ const getProcessImageName = (pid) => {
 
     if (NT_SUCCESS(result)) {
       return buffer.subarray(0, buffer.length).toString('utf16le');
+    }
+
+    // Prevent infinite loops
+    if (bufferSize >= 0xffff) {
+      console.error(`NtQuerySystemInformation() failed with pid = ${pid}, result could not fit in buffer of size 0xffff`)
+      return null;
     }
 
     bufferSize *= 2;
