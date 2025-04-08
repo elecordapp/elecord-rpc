@@ -13,6 +13,8 @@
 # install dependencies
 npm install
 
+# update detectable apps
+npm run update
 
 # start the server
 npx elecord-rpc

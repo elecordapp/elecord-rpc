@@ -4,7 +4,8 @@
   "description": "RPC server for elecord-web",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src"
+    "start": "node src",
+    "update": "node update_db.js"
   },
   "repository": {
     "type": "git",
