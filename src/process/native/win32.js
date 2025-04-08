@@ -8,7 +8,7 @@ const ntdll = koffi.load('ntdll.dll');
 // Define aliases for native data types
 const DWORD = koffi.alias('DWORD', 'uint32_t');
 const BOOL = koffi.alias('BOOL', 'int32_t');
-const HANDLE = koffi.pointer('HANDLE', koffi.opaque())
+const HANDLE = koffi.pointer('HANDLE', koffi.opaque());
 
 const UNICODE_STRING = koffi.struct('UNICODE_STRING', {
   Length: 'uint16',
@@ -21,9 +21,9 @@ const SYSTEM_PROCESS_ID_INFORMATION = koffi.struct('SYSTEM_PROCESS_ID_INFORMATIO
   ImageName: UNICODE_STRING
 });
 
-const EnumProcesses = psapi.func('BOOL __stdcall EnumProcesses(_Out_ DWORD *lpidProcess, DWORD cb, _Out_ DWORD *lpcbNeeded)')
-const GetLastError = kernel32.func('DWORD GetLastError()')
 // Define native functions
+const EnumProcesses = psapi.func('BOOL __stdcall EnumProcesses(_Out_ DWORD *lpidProcess, DWORD cb, _Out_ DWORD *lpcbNeeded)');
+const GetLastError = kernel32.func('DWORD GetLastError()');
 const NtQuerySystemInformation = ntdll.func('NtQuerySystemInformation', 'int32', ['int32', 'SYSTEM_PROCESS_ID_INFORMATION*', 'uint32', HANDLE]);
 
 // Define constants and helper functions
@@ -41,52 +41,52 @@ const getProcessImageName = (pid) => {
   let buffer = Buffer.alloc(bufferSize);
 
   while (true) {
-      const info = {
-        ProcessId: pid,
-        ImageName: {
-            Length: 0,
-            MaximumLength: buffer.length,
-            Buffer: buffer
-        }
-      };
-
-      const result = NtQuerySystemInformation(SystemProcessIdInformation, info, 24, null);
-
-      if (NT_ERROR(result) && result !== STATUS_INFO_LENGTH_MISMATCH) {
-        console.error(`NtQuerySystemInformation() failed with pid = ${pid}, error = ${result}`);
-        return null;
+    const info = {
+      ProcessId: pid,
+      ImageName: {
+        Length: 0,
+        MaximumLength: buffer.length,
+        Buffer: buffer
       }
+    };
 
-      if (NT_SUCCESS(result)) {
-        return buffer.subarray(0, buffer.length).toString('utf16le');
-      }
+    const result = NtQuerySystemInformation(SystemProcessIdInformation, info, 24, null);
 
-      bufferSize *= 2;
-      if (bufferSize > 0xffff) bufferSize = 0xffff;
-      buffer = Buffer.alloc(bufferSize);
+    if (NT_ERROR(result) && result !== STATUS_INFO_LENGTH_MISMATCH) {
+      console.error(`NtQuerySystemInformation() failed with pid = ${pid}, error = ${result}`);
+      return null;
+    }
+
+    if (NT_SUCCESS(result)) {
+      return buffer.subarray(0, buffer.length).toString('utf16le');
+    }
+
+    bufferSize *= 2;
+    if (bufferSize > 0xffff) bufferSize = 0xffff;
+    buffer = Buffer.alloc(bufferSize);
   }
 };
 
-export const getProcesses = () => new Promise(res =>  {
-  const processIds = new Uint32Array(1024); 
 // lists all running processes and retrieves their executable image names
 // (filename of an executable binary, e.g. "notepad.exe")
+export const getProcesses = () => new Promise((resolve) => {
+  const processIds = new Uint32Array(1024);
   const bytesNeeded = new Uint32Array(1);
-  let out = []
+  let processes = [];
 
-  const success = EnumProcesses(processIds, processIds.byteLength, bytesNeeded)
+  const success = EnumProcesses(processIds, processIds.byteLength, bytesNeeded);
   if (!success) {
-    console.log(GetLastError())
+    console.error(`EnumProcesses failed with error: ${GetLastError()}`);
   } else {
     const numProcesses = bytesNeeded[0] / 4; // Divide by 4 because DWORD is 4 bytes
-    for(let i = 0; i < numProcesses; ++i) {
+    for (let i = 0; i < numProcesses; ++i) {
       if (processIds[i]) {
-        let imageName = getProcessImageName(processIds[i])
-        if( imageName != null ){
-          out.push([processIds, imageName])
+        const imageName = getProcessImageName(processIds[i]);
+        if (imageName != null) {
+          processes.push([processIds, imageName]);
         }
       }
     }
   }
-  res(out)
+  resolve(processes)
 });
