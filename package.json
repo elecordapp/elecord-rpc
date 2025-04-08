@@ -1,26 +1,24 @@
 {
-  "name": "arrpc",
+  "name": "elecord-rpc",
   "version": "3.5.0",
-  "description": "Open Discord RPC server for atypical setups",
+  "description": "RPC server for elecord-web",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src"
+    "start": "node src",
+    "update": "node update_db.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenAsar/arrpc.git"
+    "url": "git+https://github.com/elecordapp/elecord-rpc.git"
   },
-  "author": "OpenAsar",
+  "author": "elecord",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/OpenAsar/arrpc/issues"
-  },
-  "homepage": "https://github.com/OpenAsar/arrpc#readme",
+  "homepage": "https://github.com/elecordapp/elecord-rpc#readme",
   "dependencies": {
     "ws": "^8.11.0"
   },
   "type": "module",
   "bin": {
-    "arrpc": "src/index.js"
+    "elecord-rpc": "src/index.js"
   }
 }
