@@ -5,7 +5,7 @@ const psapi = koffi.load('psapi.dll');
 const kernel32 = koffi.load('kernel32.dll');
 const ntdll = koffi.load('ntdll.dll');
 
-// Define Alias
+// Define aliases for native data types
 const DWORD = koffi.alias('DWORD', 'uint32_t');
 const BOOL = koffi.alias('BOOL', 'int32_t');
 const HANDLE = koffi.pointer('HANDLE', koffi.opaque())
@@ -23,8 +23,10 @@ const SYSTEM_PROCESS_ID_INFORMATION = koffi.struct('SYSTEM_PROCESS_ID_INFORMATIO
 
 const EnumProcesses = psapi.func('BOOL __stdcall EnumProcesses(_Out_ DWORD *lpidProcess, DWORD cb, _Out_ DWORD *lpcbNeeded)')
 const GetLastError = kernel32.func('DWORD GetLastError()')
+// Define native functions
 const NtQuerySystemInformation = ntdll.func('NtQuerySystemInformation', 'int32', ['int32', 'SYSTEM_PROCESS_ID_INFORMATION*', 'uint32', HANDLE]);
 
+// Define constants and helper functions
 const SystemProcessIdInformation = 88; // SYSTEM_INFORMATION_CLASS enum value for SystemProcessIdInformation
 
 const STATUS_INFO_LENGTH_MISMATCH = 0xC0000004;
@@ -67,6 +69,8 @@ const getProcessImageName = (pid) => {
 
 export const getProcesses = () => new Promise(res =>  {
   const processIds = new Uint32Array(1024); 
+// lists all running processes and retrieves their executable image names
+// (filename of an executable binary, e.g. "notepad.exe")
   const bytesNeeded = new Uint32Array(1);
   let out = []
 
