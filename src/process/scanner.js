@@ -22,12 +22,14 @@ const scanner = {
   },
 
   async scan() {
-    // const startTime = performance.now();
+    // const startTime = performance.now(); // performance logging
     const processes = await Native.getProcesses();
     const ids = [];
     const cacheKeys = {};
 
-    // log(`got processed in ${(performance.now() - startTime).toFixed(2)}ms`);
+    // // performance logging
+    // const processesTime = (performance.now() - startTime).toFixed(2)
+    // log(`got native processes in ${processesTime}ms`);
 
     for (const [ pid, _path, args ] of processes) {
       const path = _path.toLowerCase().replaceAll('\\', '/').replaceAll('\x00', '');
@@ -127,8 +129,11 @@ const scanner = {
       log(`cache gc complete: ${beforeCount} -> ${Object.keys(cache).length}`);
     }
 
-    // log(`finished scan in ${(performance.now() - startTime).toFixed(2)}ms`);
-    // process.stdout.write(`\r${' '.repeat(100)}\r[${rgb(88, 101, 242, 'RPC')} > ${rgb(237, 66, 69, 'process')}] scanned (took ${(performance.now() - startTime).toFixed(2)}ms)`);
+    // // performance logging
+    // const scanTime = (performance.now() - startTime).toFixed(2)
+    // log(`scanned ${processes.length} processes in ${(scanTime - processesTime).toFixed(2)}ms`);
+    // log(`(process took ${scanTime}ms)`);
+
   },
   processes() {
     return Observable.from(subject);
