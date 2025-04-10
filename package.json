@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src",
+    "postinstall": "patch-package",
     "update": "node update_db.js"
   },
   "repository": {
@@ -15,6 +16,8 @@
   "license": "MIT",
   "homepage": "https://github.com/elecordapp/elecord-rpc#readme",
   "dependencies": {
+    "patch-package": "^8.0.0",
+    "threads": "^1.7.0",
     "koffi": "^2.9.0",
     "ws": "^8.11.0"
   },
