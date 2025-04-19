@@ -142,5 +142,10 @@ export default class ProcessServer {
     // const scanTime = (performance.now() - startTime).toFixed(2)
     // log(`scanned ${processes.length} processes in ${(scanTime - processesTime).toFixed(2)}ms`);
     // log(`(process took ${scanTime}ms)`);
+
+    // // memory logging
+    // const { heapUsed } = process.memoryUsage();
+    // const heapUsedMB = (heapUsed / 1024 / 1024).toFixed(2);
+    // log(`heap used ${heapUsedMB} MB`);
   }
 }
