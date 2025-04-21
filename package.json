@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src",
+    "build": "bun build --compile ./src/index.js --outfile erpc --minify --sourcemap",
     "update": "node update_db.js"
   },
   "repository": {
