@@ -39,6 +39,7 @@ The [elecord-rpc](https://github.com/elecordapp/elecord-rpc) app is © [hazzuk](
 
 The [elecord logo](https://github.com/elecordapp/elecord-rpc/blob/main/media/erpc_256.png) and its derivatives are © [hazzuk](https://github.com/hazzuk) used under the terms of the elecord [logo license](https://github.com/elecordapp/elecord-rpc/blob/main/LOGO_LICENSE.txt).
 
-The original [arrpc](https://github.com/OpenAsar/arrpc) project source code is © [OpenAsar](https://github.com/OpenAsar) and other contributors. Used under the terms of the [MIT](https://github.com/elecordapp/elecord-web/blob/main/LICENSE-MIT) license.
+The original [arrpc](https://github.com/OpenAsar/arrpc) project source code is © [OpenAsar](https://github.com/OpenAsar) and other contributors.
+Used under the terms of the [MIT](https://github.com/elecordapp/elecord-rpc/blob/main/LICENSE-MIT) license.
 
 Console controller icon by [Skoll](https://game-icons.net/) under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
