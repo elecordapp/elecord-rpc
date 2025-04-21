@@ -1,11 +1,15 @@
 # elecord-rpc
 
+<img src="https://github.com/elecordapp/elecord-rpc/raw/main/media/console-example.png">
+
 #### RPC server for elecord-web
 
 > [!NOTE]
 > elecord-rpc is a modified fork of [arrpc](https://github.com/OpenAsar/arrpc), which we use as a rich presence server for [elecord-web](https://github.com/elecordapp/elecord-web).
 > 
 > (For more detailed documentation, see [arrpc](https://github.com/OpenAsar/arrpc))
+
+<img src="https://github.com/elecordapp/elecord-rpc/raw/main/media/erpc-diagram.png">
 
 Includes multiple unmerged PR's from arRPC.
 
