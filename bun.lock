@@ -1,0 +1,26 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "elecord-rpc",
+      "dependencies": {
+        "innosetup": "^6.4.1",
+        "koffi": "^2.9.0",
+        "nssm-bin": "2.24.102",
+        "ws": "^8.11.0",
+      },
+    },
+  },
+  "trustedDependencies": [
+    "koffi",
+  ],
+  "packages": {
+    "innosetup": ["innosetup@6.4.1", "", { "bin": { "innosetup-compiler": "lib/iscc" } }, "sha512-Bh/dNlyyFsFKBGoTf19n1msPnm4Njfb0CWVirw2CV1MSJXYy0ajRI+xjo/Yr9DtZFLLafhnwm1ZsxTu309F8lQ=="],
+
+    "koffi": ["koffi@2.11.0", "", {}, "sha512-AJ6MHz9Z8OIftKu322jrKJFvy/rZTdCD4b7F457WrK71rxYV7O5PSdWsJDN0p3rY1BZaPeLHVwyt4i2Xyk8wJg=="],
+
+    "nssm-bin": ["nssm-bin@2.24.102", "", {}, "sha512-GQmndo9KTzvcCd5AErZJpRvUfhK1v7Zs1+lKhIO+cKIzVr4RfkWlD4Qvey+6aeTx7B1Z6JGIf9eLkYGj3q74Cw=="],
+
+    "ws": ["ws@8.18.1", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-RKW2aJZMXeMxVpnZ6bck+RswznaxmzdULiBr6KY7XkTnW8uvt0iT9H5DkHUChXrc+uurzwa0rVI16n/Xzjdz1w=="],
+  }
+}
