@@ -1,12 +1,12 @@
 {
   "name": "elecord-rpc",
-  "version": "3.5.0",
+  "version": "1.0.0",
   "description": "RPC server for elecord-web",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src",
-    "build": "bun build --compile ./src/index.js --outfile erpc --minify --sourcemap",
-    "update": "node update_db.js"
+    "update": "bun update_db.js",
+    "compile": "bun build --compile ./src/index.js --outfile dist/erpc --minify --sourcemap",
+    "win32": "bun innosetup-compiler inno.iss --verbose"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,12 @@
   "license": "AGPL-3.0-only",
   "homepage": "https://github.com/elecordapp/elecord-rpc#readme",
   "dependencies": {
+    "innosetup": "^6.4.1",
     "koffi": "^2.9.0",
+    "nssm-bin": "2.24.102",
     "ws": "^8.11.0"
   },
+  "trustedDependencies": ["koffi"],
   "type": "module",
   "bin": {
     "elecord-rpc": "src/index.js"
