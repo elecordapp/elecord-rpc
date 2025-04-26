@@ -1,11 +1,11 @@
-const rgb = (r, g, b, msg) => `\x1b[38;2;${r};${g};${b}m${msg}\x1b[0m`;
-const log = (...args) => console.log(`[${rgb(88, 101, 242, 'eRPC')} > ${rgb(254, 231, 92, 'ipc')}]`, ...args);
-
 import { join } from 'path';
 import { platform, env } from 'process';
 import { unlinkSync } from 'fs';
 
 import { createServer, createConnection } from 'net';
+
+import CreateLogger from '../log.js';
+const log = CreateLogger('ipc');
 
 const SOCKET_PATH = platform === 'win32' ? '\\\\?\\pipe\\discord-ipc'
   : join(env.XDG_RUNTIME_DIR || env.TMPDIR || env.TMP || env.TEMP || '/tmp', 'discord-ipc');

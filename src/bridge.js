@@ -1,7 +1,7 @@
-const rgb = (r, g, b, msg) => `\x1b[38;2;${r};${g};${b}m${msg}\x1b[0m`;
-const log = (...args) => console.log(`[${rgb(88, 101, 242, 'eRPC')} > ${rgb(87, 242, 135, 'bridge')}]`, ...args);
-
 import { WebSocketServer } from 'ws';
+
+import CreateLogger from './log.js';
+const log = CreateLogger('bridge');
 
 // basic bridge to pass info onto webapp
 let lastMsg = {};
