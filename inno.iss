@@ -12,7 +12,7 @@
 #define OutputLocation ".\dist"
 
 [Setup]
-AppId={{EC7980B2-20B5-4FEA-BB4F-51C05DA8797B}
+AppId={#MyAppName}-{#MyAppVersion}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName}
@@ -48,11 +48,30 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 [Run]
 ; post-install, setup windows erpc service
 Filename: "{app}\nssm.exe"; Parameters: "install {#MyAppName} ""{app}\{#MyAppExeName}"""; Flags: runhidden;
-Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppDirectory ""{app}"""; Flags: runhidden;
+; set description
 Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} Description ""{#MyAppDescription}"""; Flags: runhidden;
+; set working directory
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppDirectory ""{app}"""; Flags: runhidden;
+; set start type
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} Start SERVICE_DELAYED_AUTO_START"; Flags: runhidden;
+; set log file
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppStdout ""{app}\{#MyAppName}.log"""; Flags: runhidden;
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppStderr ""{app}\{#MyAppName}.log"""; Flags: runhidden;
+; set log dispoition
+; https://nssm.cc/usage#io
+; https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea#parameters
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppStdoutCreationDisposition 2"; Flags: runhidden;
+Filename: "{app}\nssm.exe"; Parameters: "set {#MyAppName} AppStderrCreationDisposition 2"; Flags: runhidden;
+; start windows erpc service
 Filename: "{app}\nssm.exe"; Parameters: "start {#MyAppName}"; Flags: runhidden;
 
 [UninstallRun]
 ; pre-uninstall, remove windows erpc service
 Filename: "{app}\nssm.exe"; Parameters: "stop {#MyAppName}"; Flags: runhidden; RunOnceId: "StopService";
 Filename: "{app}\nssm.exe"; Parameters: "remove {#MyAppName} confirm"; Flags: runhidden; RunOnceId: "RemoveService";
+
+; regedit
+; Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\elecord-rpc
+
+; nssm
+; .\nssm.exe edit elecord-rpc

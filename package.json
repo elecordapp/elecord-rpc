@@ -16,14 +16,16 @@
   "license": "AGPL-3.0-only",
   "homepage": "https://github.com/elecordapp/elecord-rpc#readme",
   "dependencies": {
-    "innosetup": "^6.4.1",
     "koffi": "^2.9.0",
-    "nssm-bin": "2.24.102",
     "ws": "^8.11.0"
   },
   "trustedDependencies": ["koffi"],
   "type": "module",
   "bin": {
     "elecord-rpc": "src/index.js"
+  },
+  "devDependencies": {
+    "innosetup": "^6.4.1",
+    "nssm-bin": "2.24.102"
   }
 }
