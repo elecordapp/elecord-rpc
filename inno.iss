@@ -1,7 +1,7 @@
 ; Inno Setup - Installer for Windows programs
 
 #define MyAppName "elecord-rpc"
-#define MyAppVersion "1.0.0"
+; #define MyAppVersion "1.0.0"
 #define MyAppPublisher "elecord"
 #define MyAppURL "https://elecord.app/"
 #define MyAppExeName "erpc.exe"
