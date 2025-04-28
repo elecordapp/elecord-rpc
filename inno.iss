@@ -70,6 +70,10 @@ Filename: "{app}\nssm.exe"; Parameters: "start {#MyAppName}"; Flags: runhidden;
 Filename: "{app}\nssm.exe"; Parameters: "stop {#MyAppName}"; Flags: runhidden; RunOnceId: "StopService";
 Filename: "{app}\nssm.exe"; Parameters: "remove {#MyAppName} confirm"; Flags: runhidden; RunOnceId: "RemoveService";
 
+[UninstallDelete]
+; uninstall, remove generated log file
+Type: "files"; Name: "{app}\{#MyAppName}.log";
+
 ; regedit
 ; Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\elecord-rpc
 
