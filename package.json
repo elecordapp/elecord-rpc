@@ -16,8 +16,7 @@
   "license": "AGPL-3.0-only",
   "homepage": "https://github.com/elecordapp/elecord-rpc#readme",
   "dependencies": {
-    "koffi": "^2.9.0",
-    "ws": "^8.11.0"
+    "koffi": "^2.9.0"
   },
   "trustedDependencies": ["koffi"],
   "type": "module",
