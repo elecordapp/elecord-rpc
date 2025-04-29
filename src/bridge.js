@@ -1,5 +1,7 @@
 import { WebSocketServer } from 'ws';
 
+import { version } from '../package.json';
+
 import CreateLogger from './log.js';
 const log = CreateLogger('bridge');
 
@@ -26,9 +28,29 @@ wss.on('connection', socket => {
     if (lastMsg[id].activity != null) send(lastMsg[id]);
   }
 
+  // listen for incoming messages
+  socket.on('message', async (x) => {
+    try {
+      // parse message
+      const msg = JSON.parse(x);
+
+      // handle getAppVersion
+      if (msg.type === 'getAppVersion') {
+        log('received message:', msg.type);
+        socket.send(JSON.stringify({ type: 'appVersion', data: { version } }));
+      }
+    } catch (err) {
+      log('error processing received message:', err.message);
+      socket.send(JSON.stringify({ type: 'error', data: err.message }));
+    }
+  });
+
   socket.on('close', () => {
     log('web disconnected');
   });
 });
 
-wss.on('listening', () => log('listening on', port));
+wss.on('listening', () => {
+  console.log(`v${version}`);
+  log('listening on', port);
+});
